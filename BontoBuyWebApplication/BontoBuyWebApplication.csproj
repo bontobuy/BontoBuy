@@ -164,13 +164,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510171751058_InitialCreate.cs" />
+    <Compile Include="Migrations\201510171751058_InitialCreate.Designer.cs">
+      <DependentUpon>201510171751058_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510171755316_editTableName.cs" />
+    <Compile Include="Migrations\201510171755316_editTableName.Designer.cs">
+      <DependentUpon>201510171755316_editTableName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserRole\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\BontoBuyWebApplicationDb.mdf" />
+    <Content Include="App_Data\BontoBuyWebApplicationDb_log.ldf">
+      <DependentUpon>BontoBuyWebApplicationDb.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -228,7 +242,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <EmbeddedResource Include="Migrations\201510171751058_InitialCreate.resx">
+      <DependentUpon>201510171751058_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510171755316_editTableName.resx">
+      <DependentUpon>201510171755316_editTableName.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
