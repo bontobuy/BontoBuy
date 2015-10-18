@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BontoBuyWebApplication.Models;
 using BontoBuyWebApplication.Models.UserRole;
+using System.Net.Mail;
+using System.Net;
 
 namespace BontoBuyWebApplication.Controllers
 {
@@ -141,19 +143,19 @@ namespace BontoBuyWebApplication.Controllers
         public ActionResult Register()
         {
             var db = new ApplicationDbContext();
-                try
+            try
+            {
+                db.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole()
                 {
-                    db.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole()
-                    {
-                        Name = "Supplier"
-                    });
-                    db.SaveChanges();
-                    return View();
-                }
-                catch
-                {
-                    return View();
-                }
+                    Name = "Supplier"
+                });
+                db.SaveChanges();
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         //
@@ -171,6 +173,7 @@ namespace BontoBuyWebApplication.Controllers
                 {
                     await SignInManager.SignInAsync(supplier, isPersistent: false, rememberBrowser: false);
 
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -179,7 +182,7 @@ namespace BontoBuyWebApplication.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-               
+
                 AddErrors(result);
             }
 
@@ -219,13 +222,22 @@ namespace BontoBuyWebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var supplier = new Supplier { UserName = model.Email, Email = model.Email, SupplierName=model.SupplierName,
-                Street=model.Street, Website=model.Website,Status="Pending",City=model.City,DateUpdated=DateTime.UtcNow,DateCreated=DateTime.UtcNow};
+                var supplier = new Supplier
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    SupplierName = model.SupplierName,
+                    Street = model.Street,
+                    Website = model.Website,
+                    Status = "Pending",
+                    City = model.City,
+                    DateUpdated = DateTime.UtcNow,
+                    DateCreated = DateTime.UtcNow
+                };
                 var result = await UserManager.CreateAsync(supplier, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(supplier, isPersistent: false, rememberBrowser: false);
-
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -238,6 +250,70 @@ namespace BontoBuyWebApplication.Controllers
                 AddErrors(result);
             }
             return View(model);
+        }
+
+        //
+        // GET: /Account/RegisterSupplier
+        [AllowAnonymous]
+        public ActionResult RegisterAdmin()
+        {
+            var db = new ApplicationDbContext();
+            try
+            {
+                db.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole()
+                {
+                    Name = "Admin"
+                });
+                db.SaveChanges();
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        //
+        // POST: /Account/RegisterAdmin
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+         public async Task<ActionResult> RegisterAdmin(RegisterAdminViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var admin=new Admin
+                {
+                    UserName = model.Email,
+                    AdminName=model.AdminName,
+                    Email = model.Email,
+                };
+                var result = await UserManager.CreateAsync(admin, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(admin, isPersistent: false, rememberBrowser: false);
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                AddErrors(result);
+            }
+            return View(model);
+        }
+
+
+        public static string ActivationCode()
+        {
+            int length = 8;
+            const string Chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var RandomNumber = new Random();
+            return new string(Enumerable.Repeat(Chars, length)
+                .Select(s => s[RandomNumber.Next(s.Length)]).ToArray());
         }
 
 

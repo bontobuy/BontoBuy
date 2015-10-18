@@ -180,10 +180,15 @@
     <Compile Include="Migrations\201510180426522_addSupplierValidation.Designer.cs">
       <DependentUpon>201510180426522_addSupplierValidation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510181202431_AddedAdminTable.cs" />
+    <Compile Include="Migrations\201510181202431_AddedAdminTable.Designer.cs">
+      <DependentUpon>201510181202431_AddedAdminTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserRole\Admin.cs" />
     <Compile Include="Models\UserRole\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -251,6 +256,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\RegisterSupplier.cshtml" />
+    <Content Include="Views\Account\RegisterAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510171751058_InitialCreate.resx">
@@ -264,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510180426522_addSupplierValidation.resx">
       <DependentUpon>201510180426522_addSupplierValidation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510181202431_AddedAdminTable.resx">
+      <DependentUpon>201510181202431_AddedAdminTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
