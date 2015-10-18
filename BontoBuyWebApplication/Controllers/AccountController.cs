@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BontoBuyWebApplication.Models;
+using BontoBuyWebApplication.Models.UserRole;
 
 namespace BontoBuyWebApplication.Controllers
 {
@@ -22,7 +23,7 @@ namespace BontoBuyWebApplication.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +35,9 @@ namespace BontoBuyWebApplication.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +121,7 @@ namespace BontoBuyWebApplication.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -139,7 +140,20 @@ namespace BontoBuyWebApplication.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            var db = new ApplicationDbContext();
+                try
+                {
+                    db.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole()
+                    {
+                        Name = "Supplier"
+                    });
+                    db.SaveChanges();
+                    return View();
+                }
+                catch
+                {
+                    return View();
+                }
         }
 
         //
@@ -151,12 +165,12 @@ namespace BontoBuyWebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var supplier = new Supplier { UserName = model.Email, Email = model.Email, };
+                var result = await UserManager.CreateAsync(supplier, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(supplier, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -165,12 +179,67 @@ namespace BontoBuyWebApplication.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+               
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+
+        //
+        // GET: /Account/RegisterSupplier
+        [AllowAnonymous]
+        public ActionResult RegisterSupplier()
+        {
+            var db = new ApplicationDbContext();
+            try
+            {
+                db.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole()
+                {
+                    Name = "Supplier"
+                });
+                db.SaveChanges();
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        //
+        // POST: /Account/RegisterSupplier
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterSupplier(RegisterSupplierViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var supplier = new Supplier { UserName = model.Email, Email = model.Email, SupplierName=model.SupplierName,
+                Street=model.Street, Website=model.Website,Status="Pending",City=model.City,DateUpdated=DateTime.UtcNow,DateCreated=DateTime.UtcNow};
+                var result = await UserManager.CreateAsync(supplier, model.Password);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(supplier, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+                AddErrors(result);
+            }
+            return View(model);
+        }
+
 
         //
         // GET: /Account/ConfirmEmail

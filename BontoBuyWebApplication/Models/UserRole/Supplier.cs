@@ -12,11 +12,24 @@ namespace BontoBuyWebApplication.Models.UserRole
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SupplierId { get; set; }
+
+        [Required]
+        [StringLength(100,MinimumLength=6)]
+        [Display(Name="Organization Name")]
         public string SupplierName { get; set; }
+
+        [Required]
+        [Display(Name="Street")]
         public string Street { get; set; }
-        public int PhoneNumber { get; set; }
+
+        [Display(Name="Website")]
         public string Website { get; set; }
+
+        [Display(Name="Status")]
         public string Status { get; set; }
+
+        [Required]
+        [Display(Name="City")]
         public string City { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
