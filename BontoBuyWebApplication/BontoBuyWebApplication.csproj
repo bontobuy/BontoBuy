@@ -267,8 +267,9 @@
     <Content Include="Views\AdminSupplier\Delete.cshtml" />
     <Content Include="Views\AdminSupplier\Details.cshtml" />
     <Content Include="Views\AdminSupplier\Edit.cshtml" />
-    <Content Include="Views\AdminSupplier\Index.cshtml" />
+    <Content Include="Views\AdminSupplier\Index2.cshtml" />
     <Content Include="Views\Shared\AdminLayout.cshtml" />
+    <Content Include="Views\AdminSupplier\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510171751058_InitialCreate.resx">
