@@ -200,6 +200,7 @@
     <Content Include="App_Data\BontoBuyWebApplicationDb_log.ldf">
       <DependentUpon>BontoBuyWebApplicationDb.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\Admin\Site.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -263,6 +264,7 @@
     <Content Include="Views\Account\LoginSupplier.cshtml" />
     <Content Include="Views\Account\LoginAdmin.cshtml" />
     <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\Shared\AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510171751058_InitialCreate.resx">
