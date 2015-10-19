@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using BontoBuyWebApplication.Models.UserRole;
 
 namespace BontoBuyWebApplication.Models
 {
@@ -25,6 +26,9 @@ namespace BontoBuyWebApplication.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Admin> Admins { get; set; }
 
         public static ApplicationDbContext Create()
         {

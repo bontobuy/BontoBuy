@@ -82,7 +82,7 @@ namespace BontoBuyWebApplication.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -93,6 +93,93 @@ namespace BontoBuyWebApplication.Controllers
                     return View(model);
             }
         }
+
+         //
+        // GET: /Account/LoginSupplier
+        [AllowAnonymous]
+        public ActionResult LoginSupplier(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+
+         //
+        // POST: /Account/LoginSupplier
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult>LoginSupplier(LoginViewModel model,string returnUrl )
+        { 
+        
+            if (!ModelState.IsValid)
+            {
+                return Content("TEst");
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToLocal(returnUrl);
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
+
+        
+        }
+
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult LoginAdmin(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+
+        //
+        // POST: /Account/LoginSupplier
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LoginAdmin(LoginViewModel model, string returnUrl)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Index", "Admin");
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                default:
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+            }
+
+
+        }
+
 
         //
         // GET: /Account/VerifyCode
@@ -147,7 +234,7 @@ namespace BontoBuyWebApplication.Controllers
             {
                 db.Roles.Add(new Microsoft.AspNet.Identity.EntityFramework.IdentityRole()
                 {
-                    Name = "Supplier"
+                    Name = "Customer"
                 });
                 db.SaveChanges();
                 return View();
@@ -254,7 +341,7 @@ namespace BontoBuyWebApplication.Controllers
 
         //
         // GET: /Account/RegisterSupplier
-        [AllowAnonymous]
+        [Authorize(Roles="Admin")]
         public ActionResult RegisterAdmin()
         {
             var db = new ApplicationDbContext();
@@ -276,16 +363,16 @@ namespace BontoBuyWebApplication.Controllers
         //
         // POST: /Account/RegisterAdmin
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles="Admin")]
         [ValidateAntiForgeryToken]
-         public async Task<ActionResult> RegisterAdmin(RegisterAdminViewModel model)
+        public async Task<ActionResult> RegisterAdmin(RegisterAdminViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var admin=new Admin
+                var admin = new Admin
                 {
                     UserName = model.Email,
-                    AdminName=model.AdminName,
+                    AdminName = model.AdminName,
                     Email = model.Email,
                 };
                 var result = await UserManager.CreateAsync(admin, model.Password);

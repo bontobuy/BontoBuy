@@ -1,0 +1,16 @@
+﻿@model ICollection<BontoBuyWebApplication.Models.UserRole.Supplier>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Dashboard</h2>
+@foreach (var item in Model)
+{
+    <div>
+        <h4>
+            @item.SupplierId
+        </h4>
+        <div>@item.SupplierName, @item.Id</div>
+        <hr />
+    </div>
+}
