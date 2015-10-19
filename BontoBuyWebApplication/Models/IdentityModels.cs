@@ -30,6 +30,7 @@ namespace BontoBuyWebApplication.Models
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Admin> Admins { get; set; }
 
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
