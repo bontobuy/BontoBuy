@@ -31,8 +31,12 @@ namespace BontoBuyWebApplication.Models.UserRole
         [Required]
         [Display(Name="City")]
         public string City { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+
+        [Column(TypeName = "DateTime2")]
+        public Nullable<DateTime> DateCreated { get; set; }
+
+        [Column(TypeName = "DateTime2")]
+        public Nullable<DateTime> DateUpdated { get; set; }
 
 
     }

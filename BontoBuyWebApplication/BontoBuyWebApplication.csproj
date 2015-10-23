@@ -186,11 +186,22 @@
     <Compile Include="Migrations\201510181202431_AddedAdminTable.Designer.cs">
       <DependentUpon>201510181202431_AddedAdminTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510191714298_addedDateType.cs" />
+    <Compile Include="Migrations\201510191714298_addedDateType.Designer.cs">
+      <DependentUpon>201510191714298_addedDateType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510191716148_addDatatype2.cs" />
+    <Compile Include="Migrations\201510191716148_addDatatype2.Designer.cs">
+      <DependentUpon>201510191716148_addDatatype2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510191735514_addDateNullable.cs" />
+    <Compile Include="Migrations\201510191735514_addDateNullable.Designer.cs">
+      <DependentUpon>201510191735514_addDateNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Status.cs" />
     <Compile Include="Models\UserRole\Admin.cs" />
     <Compile Include="Models\UserRole\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,12 +274,17 @@
     <Content Include="Views\Account\RegisterAdmin.cshtml" />
     <Content Include="Views\Account\LoginSupplier.cshtml" />
     <Content Include="Views\Account\LoginAdmin.cshtml" />
-    <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\AdminSupplier\Delete.cshtml" />
     <Content Include="Views\AdminSupplier\Details.cshtml" />
     <Content Include="Views\AdminSupplier\Edit.cshtml" />
     <Content Include="Views\AdminSupplier\Index.cshtml" />
     <Content Include="Views\Shared\AdminLayout.cshtml" />
+    <Content Include="Views\Shared\View.cshtml" />
+    <Content Include="Views\AdminSupplier\Dashboard.cshtml" />
+    <Content Include="Views\Supplier\Details.cshtml" />
+    <Content Include="Views\Supplier\Edit.cshtml" />
+    <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\Supplier\Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201510171751058_InitialCreate.resx">
@@ -286,6 +302,15 @@
     <EmbeddedResource Include="Migrations\201510181202431_AddedAdminTable.resx">
       <DependentUpon>201510181202431_AddedAdminTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510191714298_addedDateType.resx">
+      <DependentUpon>201510191714298_addedDateType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510191716148_addDatatype2.resx">
+      <DependentUpon>201510191716148_addDatatype2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510191735514_addDateNullable.resx">
+      <DependentUpon>201510191735514_addDateNullable.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -295,6 +320,7 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\AccessControl\" />
     <Folder Include="Models\DAL\" />
   </ItemGroup>
   <PropertyGroup>

@@ -13,6 +13,7 @@ using BontoBuyWebApplication.Models.UserRole;
 using System.Net.Mail;
 using System.Net;
 
+
 namespace BontoBuyWebApplication.Controllers
 {
     [Authorize]
@@ -114,7 +115,7 @@ namespace BontoBuyWebApplication.Controllers
         
             if (!ModelState.IsValid)
             {
-                return Content("TEst");
+                return View();
             }
 
             // This doesn't count login failures towards account lockout
@@ -166,7 +167,7 @@ namespace BontoBuyWebApplication.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("Dashboard", "AdminSupplier");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -320,6 +321,7 @@ namespace BontoBuyWebApplication.Controllers
                     City = model.City,
                     DateUpdated = DateTime.UtcNow,
                     DateCreated = DateTime.UtcNow
+                    
                 };
                 var result = await UserManager.CreateAsync(supplier, model.Password);
                 if (result.Succeeded)
@@ -331,7 +333,7 @@ namespace BontoBuyWebApplication.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Dashboard", "Supplier");
                 }
 
                 AddErrors(result);
@@ -339,9 +341,9 @@ namespace BontoBuyWebApplication.Controllers
             return View(model);
         }
 
+
         //
-        // GET: /Account/RegisterSupplier
-        [Authorize(Roles="Admin")]
+        // GET: /Account/RegisterAdmin
         public ActionResult RegisterAdmin()
         {
             var db = new ApplicationDbContext();
@@ -363,7 +365,6 @@ namespace BontoBuyWebApplication.Controllers
         //
         // POST: /Account/RegisterAdmin
         [HttpPost]
-        [Authorize(Roles="Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterAdmin(RegisterAdminViewModel model)
         {

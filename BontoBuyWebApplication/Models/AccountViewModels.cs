@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BontoBuyWebApplication.Models
 {
@@ -147,7 +148,10 @@ namespace BontoBuyWebApplication.Models
         [Required]
         [Display(Name = "City")]
         public string City { get; set; }
+
+        [Column(TypeName = "DateTime2")]
         public DateTime DateCreated { get; set; }
+        [Column(TypeName = "DateTime2")]
         public DateTime DateUpdated { get; set; }
 
     }
