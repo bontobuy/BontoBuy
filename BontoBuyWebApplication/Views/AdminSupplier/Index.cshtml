@@ -1,9 +1,11 @@
-﻿@model IEnumerable<BontoBuyWebApplication.Models.UserRole.Supplier>
+﻿@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+@model IEnumerable<BontoBuyWebApplication.Models.UserRole.Supplier>
 
 @{
     ViewBag.Title = "Index";
 }
-
 <h2>Index</h2>
 <table class="table">
     <tr>
@@ -82,3 +84,5 @@
 }
 
 </table>
+
+
