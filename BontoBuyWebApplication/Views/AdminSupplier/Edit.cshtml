@@ -71,8 +71,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                @Html.DisplayFor(model => model.Status)
+                @{
+                    var listItems = new List<System.Web.UI.WebControls.ListItem> { new System.Web.UI.WebControls.ListItem { Text = "Inactive", Value = "Inactive" }, new System.Web.UI.WebControls.ListItem { Text = "Active", Value = "Active" }, new System.Web.UI.WebControls.ListItem { Text = "Pending", Value = "Pending" } };
+                }
+                @Html.DropDownListFor(model => model.Status, new SelectList(listItems), "-- Select Status --")
             </div>
         </div>
 

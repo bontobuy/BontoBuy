@@ -12,7 +12,7 @@
 </head>
 <body>
     <nav class="navbar navbar-default navbar-static-top">
-        <div class="container-fluid">
+        <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle navbar-toggle-sidebar collapsed">
@@ -57,7 +57,7 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <div class="container">
+    <div class="container body-content">
         <div class="row">
             <div class="col-sm-2">
                 <div id="sidebar" class="well sidebar-nav">
@@ -81,7 +81,10 @@
                 </div>
             </div>
             <div class="col-md-8">
-                @RenderBody()
+                
+                    @RenderBody()
+              
+                
             </div>
         </div>
     </div>
