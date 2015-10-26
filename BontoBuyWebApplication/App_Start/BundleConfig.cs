@@ -24,13 +24,19 @@ namespace BontoBuyWebApplication
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                       "~/Content/bootstrap.css",
+                      "~/content/Custom.css",
+                      "~/content/bootstrap-theme.css",
+                      "~/Content/Login.css",
+                      "~/Content/Product.css"));
 
             bundles.Add(new StyleBundle("~/Content/AdminCSS").Include(
                 "~/Content/Admin/Site.css",
                 "~/Content/bootstrap.css",
                 "~/content/bootstrap-theme.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/CustomJS").Include(
+                           "~/Scripts/Custom.js"));
         }
     }
 }

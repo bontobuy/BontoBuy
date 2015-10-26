@@ -26,5 +26,15 @@ namespace BontoBuyWebApplication.Controllers
 
             return View();
         }
+
+        public ActionResult ViewCart()
+        {
+            return View();
+        }
+
+        public ActionResult Product()
+        {
+            return View();
+        }
     }
 }
