@@ -81,7 +81,7 @@ namespace BontoBuyWebApplication.Controllers
 
                 var supplierToUpdate = db.Suppliers.Find(id);
                 if(TryUpdateModel(supplierToUpdate,"",
-                    new string[]{"SupplierName","Status"}))
+                    new string[]{"SupplierName","Status","Street","City","Website"}))
                 {
                     try
                     {
