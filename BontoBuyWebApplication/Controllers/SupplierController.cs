@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using BontoBuyWebApplication.Models;
 using BontoBuyWebApplication.Models.UserRole;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
 
 namespace BontoBuyWebApplication.Controllers
 {
@@ -18,8 +20,15 @@ namespace BontoBuyWebApplication.Controllers
         // GET: Supplier
         public ActionResult Index()
         {
-            
-            return View(db.Suppliers.ToList());
+
+            string userId = User.Identity.GetUserId();
+            User currentUser = db.Users.FirstOrDefault(x => x.Id == userId);
+            IQueryable<Supplier> supplierQuery =
+               from supplier in db.Suppliers
+               where supplier.Id==userId
+               select supplier;
+            return View(supplierQuery);
+
         }
 
         // GET: Supplier/Details/5

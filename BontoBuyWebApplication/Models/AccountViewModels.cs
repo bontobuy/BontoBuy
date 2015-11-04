@@ -81,6 +81,33 @@ namespace BontoBuyWebApplication.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 6)]
+        [Display(Name = "Customer Name")]
+        public string CustomerName { get; set; }
+
+        [Required]
+        [Display(Name = "Street")]
+        public string Street { get; set; }
+
+        [Display(Name = "Status")]
+        public string Status { get; set; }
+
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+
+        [Column(TypeName = "DateTime2")]
+        public DateTime DateCreated { get; set; }
+
+        [Column(TypeName = "DateTime2")]
+        public DateTime DateOfBirth { get; set; }
+
+        [Column(TypeName = "DateTime2")]
+        public DateTime DateUpdated { get; set; }
+
+
     }
 
     public class ResetPasswordViewModel

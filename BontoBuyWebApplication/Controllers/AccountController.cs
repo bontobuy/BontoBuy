@@ -255,11 +255,23 @@ namespace BontoBuyWebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var supplier = new Supplier { UserName = model.Email, Email = model.Email, };
-                var result = await UserManager.CreateAsync(supplier, model.Password);
+                var customer = new Customer
+                {
+                   UserName=model.Email,
+                   Email = model.Email,
+                   CustomerName = model.CustomerName,
+                   Street = model.Street,
+                   Status = "Active",
+                   City = model.City,
+                   DateUpdated = DateTime.UtcNow,
+                   DateCreated = DateTime.UtcNow,
+                   
+
+                };
+                var result = await UserManager.CreateAsync(customer, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(supplier, isPersistent: false, rememberBrowser: false);
+                    await SignInManager.SignInAsync(customer, isPersistent: false, rememberBrowser: false);
 
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

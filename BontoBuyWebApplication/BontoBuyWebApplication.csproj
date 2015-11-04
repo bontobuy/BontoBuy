@@ -198,11 +198,20 @@
     <Compile Include="Migrations\201510191735514_addDateNullable.Designer.cs">
       <DependentUpon>201510191735514_addDateNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510270304474_createCustomerClass.cs" />
+    <Compile Include="Migrations\201510270304474_createCustomerClass.Designer.cs">
+      <DependentUpon>201510270304474_createCustomerClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510270343195_editedCustomer.cs" />
+    <Compile Include="Migrations\201510270343195_editedCustomer.Designer.cs">
+      <DependentUpon>201510270343195_editedCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\UserRole\Admin.cs" />
+    <Compile Include="Models\UserRole\Customer.cs" />
     <Compile Include="Models\UserRole\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -316,6 +325,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510191735514_addDateNullable.resx">
       <DependentUpon>201510191735514_addDateNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510270304474_createCustomerClass.resx">
+      <DependentUpon>201510270304474_createCustomerClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510270343195_editedCustomer.resx">
+      <DependentUpon>201510270343195_editedCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
