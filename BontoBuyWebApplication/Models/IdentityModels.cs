@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using BontoBuyWebApplication.Models.UserRole;
+using BontoBuyWebApplication.Models.ProductType;
 
 namespace BontoBuyWebApplication.Models
 {
@@ -30,6 +31,8 @@ namespace BontoBuyWebApplication.Models
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Product> Products { get; set; }
+        
 
         public static ApplicationDbContext Create()
         {
@@ -45,7 +48,7 @@ namespace BontoBuyWebApplication.Models
             modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogin");
             modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim").Property(p => p.Id).HasColumnName("UserClaimId");
             modelBuilder.Entity<IdentityRole>().ToTable("Role").Property(p => p.Id).HasColumnName("RoleId");
-
+       
         }
 
     }

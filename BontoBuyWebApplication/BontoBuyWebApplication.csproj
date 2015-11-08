@@ -207,10 +207,19 @@
     <Compile Include="Migrations\201510270343195_editedCustomer.Designer.cs">
       <DependentUpon>201510270343195_editedCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511081709353_addProduct.cs" />
+    <Compile Include="Migrations\201511081709353_addProduct.Designer.cs">
+      <DependentUpon>201511081709353_addProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511081716159_AddedFkProduct.cs" />
+    <Compile Include="Migrations\201511081716159_AddedFkProduct.Designer.cs">
+      <DependentUpon>201511081716159_AddedFkProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ProductType\Product.cs" />
     <Compile Include="Models\UserRole\Admin.cs" />
     <Compile Include="Models\UserRole\Customer.cs" />
     <Compile Include="Models\UserRole\Supplier.cs" />
@@ -334,6 +343,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510270343195_editedCustomer.resx">
       <DependentUpon>201510270343195_editedCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511081709353_addProduct.resx">
+      <DependentUpon>201511081709353_addProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511081716159_AddedFkProduct.resx">
+      <DependentUpon>201511081716159_AddedFkProduct.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
