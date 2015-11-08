@@ -7,6 +7,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BontoBuyWebApplication.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
+using BontoBuyWebApplication.Models.UserRole;
+using System.Data;
 
 namespace BontoBuyWebApplication.Controllers
 {
@@ -319,6 +323,66 @@ namespace BontoBuyWebApplication.Controllers
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
+
+        private ApplicationDbContext db = new ApplicationDbContext();
+
+
+        // GET: Customers/Edit/5
+        public ActionResult Edit(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(customer);
+        }
+
+        // POST: Customers/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost, ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        [DataType(DataType.Date)]
+        public ActionResult EditPost(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var customerToUpdate = db.Customers.Find(id);
+            if (TryUpdateModel(customerToUpdate, "",
+                new string[] { "CustomerName", "Status", "Street", "City" }))
+            {
+                try
+                {
+                    Customer customer = (from p in db.Customers
+                                         where p.Id == id
+                                         select p).SingleOrDefault();
+                    customer.DateUpdated = DateTime.UtcNow;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DataException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+
+            }
+            //db.Entry(supplier).State = EntityState.Modified;
+            //supplier.DateUpdated = DateTime.UtcNow;
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
+
+            return View(customerToUpdate);
+
+        }
+
 
         protected override void Dispose(bool disposing)
         {
